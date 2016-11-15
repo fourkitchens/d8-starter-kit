@@ -11,3 +11,7 @@ web/sites/*/files
 
 # Ignore SimpleTest multi-site environment.
 web/sites/simpletest
+
+# Ignore local configurations.
+local.settings.php
+config.yml
