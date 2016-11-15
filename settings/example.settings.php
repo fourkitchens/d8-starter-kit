@@ -244,7 +244,10 @@ $databases = array();
  *   );
  * @endcode
  */
-$config_directories = array();
+$config_directories = array(
+  'sync' => '../config/base',
+  'local' => '../config/local',
+);
 
 /**
  * Settings:
