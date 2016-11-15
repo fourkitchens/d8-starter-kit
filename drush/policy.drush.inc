@@ -1,7 +1,13 @@
 <?php
 
-/*
- * Customize this file as desired. See https://github.com/drush-ops/drush/blob/8.x/examples/policy.drush.inc for documentation.
+/**
+ * @file
+ * Drush policy commandfile. Modify as desired.
+ *
+ * Validates commands as they are issued and returns an error or changes options
+ * when policy is violated.
+ *
+ * @see https://github.com/drush-ops/drush/blob/8.x/examples/policy.drush.inc
  */
 
 /**
