@@ -1,0 +1,16 @@
+**/js_test_files/**/*
+gulp-tasks/**/*
+pattern-lab/**/*
+libraries/**/*
+**/sassdoc/**/*
+.aquifer/**/*
+web/core/**/*
+files/**/*
+node_modules/**/*
+vendor/**/*
+**/contrib/**/*
+**/themes/**/dist/**/*
+**/annotations.js
+acquia-utils/**/*
+library/**/*
+hooks/**/*

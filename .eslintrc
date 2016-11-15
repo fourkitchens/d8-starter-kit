@@ -1,0 +1,7 @@
+{
+  "extends": "./web/.eslintrc",
+  "globals": {
+    "Typekit": true,
+    "L": true,
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "d8-starter-kit",
+  "description": "Drupal 8 starter kit javascript dependencies.",
+  "version": "0.0.1",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/fourkitchens/d8-starter-kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fourkitchens/d8-starter-kit.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-help": "^1.6.1",
+    "gulp-tap": "~0.1.3",
+    "minimist": "~1.1.1",
+    "sync-exec": "~0.5.0"
+  }
+}
