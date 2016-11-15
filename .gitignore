@@ -14,4 +14,7 @@ web/sites/simpletest
 
 # Ignore local configurations.
 local.settings.php
+
+# Vagrant.
 config.yml
+.vagrant
