@@ -1,13 +1,6 @@
-# Composer template for Drupal projects
+# Starter kit for building Drupal 8 projects using Composer
 
-[![Build Status](https://travis-ci.org/drupal-composer/drupal-project.svg?branch=8.x)](https://travis-ci.org/drupal-composer/drupal-project)
-
-This project template should provide a kickstart for managing your site
-dependencies with [Composer](https://getcomposer.org/).
-
-If you want to know how to use it as replacement for
-[Drush Make](https://github.com/drush-ops/drush/blob/master/docs/make.md) visit
-the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
+Based on the [Drupal Composer project](https://github.com/drupal-composer/drupal-project) with some helpful yummies for managing a Drupal 8 project with [Composer](https://getcomposer.org).
 
 ## Usage
 
@@ -20,7 +13,7 @@ for your setup.
 After that you can create the project:
 
 ```
-composer create-project drupal-composer/drupal-project:8.x-dev some-dir --stability dev --no-interaction
+composer create-project fourkitchens/d8-starter-kit:8.x-dev some-dir --stability dev --no-interaction
 ```
 
 With `composer require ...` you can download new dependencies to your 
@@ -56,7 +49,7 @@ This project will attempt to keep all of your Drupal Core files up-to-date; the
 project [drupal-composer/drupal-scaffold](https://github.com/drupal-composer/drupal-scaffold) 
 is used to ensure that your scaffold files are updated every time drupal/core is 
 updated. If you customize any of the "scaffolding" files (commonly .htaccess), 
-you may need to merge conflicts if any of your modfied files are updated in a 
+you may need to merge conflicts if any of your modified files are updated in a 
 new release of Drupal core.
 
 Follow the steps below to update your core files.
