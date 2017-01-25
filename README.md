@@ -1,6 +1,25 @@
 # Drupal 8 Starter Kit
 
-## Initial setup
+## Initial project setup
+
+When first setting up a new project there are a few configuration variables that need to be set.
+
+In `project.yml` set project values for:
+```
+env:
+  default:
+    project_name: "my-project"
+    alias: "@my-project.local"
+    database: "my-project"
+```
+
+In `config.yml` set `vagrant_machine_name` to the same value you set for `env.default.project_name` above:
+
+```
+vagrant_machine_name: my-project
+```
+
+## Local environment setup
 
 Provided you have all of the system requirements in place you're just a couple of commands away from having the site set up locally and only one more beyond that if you want to use the virtual machine for your local environment (recommended).
 
@@ -34,6 +53,8 @@ gulp run -t drupalvm
 ```
 
 The VM provisioning should complete without errors. If so, you'll be able to access the site at [my-project.local](http://my-project.local).
+
+If this is a new site without a database, go here to complete the Drupal install: [http://my-project.local/core/install.php](http://my-project.local/core/install.php).
 
 You'll be able to access some helpful tools for the VM (like phpMyAdmin, Solr, and MailHog) at [http://192.168.88.92](http://192.168.88.92).
 
