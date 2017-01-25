@@ -1,0 +1,71 @@
+# Define environment variables. These variables will be available in the run
+# task commands by concatenating the keys together in an uppercase string. For
+# example, the value of env.default.alias can be used in a run task command as:
+# $ENV_DEFAULT_ALIAS
+#
+# Default variables are available in every environment but values will be
+# overridden if the variable is redefined for another environment.
+#
+# WARNING: This file is committed to the project repository. Do not put
+# sensitive information into environment variables here. Use a local.project.yml
+# or another method available to the environment that does not require
+# committing the variable values to the repo.
+env:
+  default:
+    project_name: "my-project"
+    alias: "@my-project.local"
+    database: "my-project"
+    dev_modules: "devel devel_generate kint dblog"
+
+# Run tasks. These tasks are executed using this syntax: gulp run -t <task>
+# e.g. gulp run -t example
+run:
+  example:
+    description: "Runs drush status on default environment."
+    confirm: "This will run drush status on the default environment. Are you sure you want to proceed?"
+    commands:
+      - "drush $ENV_DEFAULT_ALIAS status"
+  setup:
+    description: "Initial project setup."
+    commands:
+      - "composer install"
+      - "gulp aliases"
+      - "gulp install-phpcs"
+  drupalvm:
+    description: "Configures and installs a Drupal VM for this project."
+    commands:
+      - "[ -f ./config.yml ] && echo \"config.yml already exists.\" || cp ./example.config.yml ./config.yml"
+      - "vagrant up"
+  import-data:
+    description: "Imports canonical database into Drupal and sanitizes it."
+    commands:
+      - "[ -f ./reference/db.sql.gz ] && echo \"Reference database exists.\" || echo \"Reference database doesn't exist.\""
+      - "drush $ENV_DEFAULT_ALIAS sql-drop -y"
+      - "gunzip < ./reference/db.sql.gz | drush $ENV_DEFAULT_ALIAS sql-cli"
+      - "drush $ENV_DEFAULT_ALIAS sql-sanitize -y --sanitize-password=admin --sanitize-email=user-%uid@example.com"
+  confex:
+    description: "Exports configuration from the local environment."
+    commands:
+      - "drush $ENV_DEFAULT_ALIAS pm-uninstall -y $ENV_DEFAULT_DEV_MODULES"
+      - "drush $ENV_DEFAULT_ALIAS config-export sync -y"
+      - "drush $ENV_DEFAULT_ALIAS pm-enable -y $ENV_DEFAULT_DEV_MODULES"
+      - "drush $ENV_DEFAULT_ALIAS config-import dev --partial -y"
+      - "if test -d ./config/local; then drush $ENV_DEFAULT_ALIAS config-import local --partial -y; fi"
+  confim:
+    description: "Configuration import for the local environment."
+    commands:
+      - "drush $ENV_DEFAULT_ALIAS updatedb -y"
+      - "drush $ENV_DEFAULT_ALIAS cache-rebuild"
+      - "drush $ENV_DEFAULT_ALIAS config-import sync -y"
+      - "drush $ENV_DEFAULT_ALIAS pm-enable -y $ENV_DEFAULT_DEV_MODULES"
+      - "drush $ENV_DEFAULT_ALIAS config-import dev --partial -y"
+      - "if test -d ./config/local; then drush $ENV_DEFAULT_ALIAS config-import local --partial -y; fi"
+      - "drush $ENV_DEFAULT_ALIAS entity-updates -y"
+      - "drush $ENV_DEFAULT_ALIAS cache-rebuild"
+  rebuild:
+    description: "Rebuilds Drupal dependencies, imports the canonical database and imports configuration."
+    commands:
+      - "composer install"
+      - "gulp run -t import-data"
+      - "gulp run -t confim"
+      - "drush $ENV_DEFAULT_ALIAS uli uid=1"

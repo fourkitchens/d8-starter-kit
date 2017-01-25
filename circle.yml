@@ -1,0 +1,72 @@
+general:
+  branches:
+    ignore:
+      - develop
+machine:
+  php:
+    version: 5.6.17
+  environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin
+    DRUPAL_DOCROOT: "docroot"
+  node:
+    version: 5.0.0
+  pre:
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 10
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 10
+  hosts:
+    circle.local: 127.0.0.1
+dependencies:
+  pre:
+    - echo "memory_limit = 1024M" > $PHPENV_ROOT/versions/$(phpenv global)/etc/conf.d/memory.ini
+    # Install Pipe Viewer to display mysql database import progress.
+    - sudo apt-get install pv
+    # Fix missing libphp5.so
+    # See: https://discuss.circleci.com/t/apache2-and-php-missing-libphp5-so/3300
+    - sudo unlink /usr/lib/apache2/modules/libphp5.so
+    - sudo ln -s $PHPENV_ROOT/versions/$(phpenv global)/usr/lib/apache2/modules/libphp5.so /usr/lib/apache2/modules/libphp5.so
+  cache_directories:
+    - ~/.composer
+    - node_modules
+    - ~/.drush
+    - circle/artifacts
+  post:
+    # Check code quality.
+    # Run in parallel. Account must have multiple cores
+    # - case $CIRCLE_NODE_INDEX in 0) gulp phpcs --install --exit ;; 1) gulp eslint ;; esac:
+    #     parallel: true
+    # Run sequentially.
+    - gulp phpcs --install --exit
+    - gulp eslint
+
+    # Configure drush.
+    - sudo mkdir -p ~/.drush
+    - sudo chown -R ubuntu:ubuntu ~/.drush
+    - cp ./circle/circle.aliases.drushrc.php ~/.drush
+    - drush cc drush
+
+    # Drupal settings.
+    - cp ./circle/local.settings.php ./$DRUPAL_DOCROOT/sites/default/local.settings.php
+
+    # Get the canonical database.
+    # Get database from Acquia.
+    # Props to: https://github.com/balazswmann/drupal-circleci-db-import
+    # - sudo chmod +x ./circle/acquia/acquia-get-db-backup.sh
+    # - sudo chmod +rx ./circle/acquia/acquia-get-db-backup-id.php
+    # - ./circle/acquia/acquia-get-db-backup.sh $ACQUIA_REALM:$ACQUIA_SITE $ACQUIA_CANONICAL_ENV $ACQUIA_SITE
+
+    # Import database if it exists at ./circle/artifacts/db.sql.gz
+    # - sudo chmod +x ./circle/db-import.sh
+    # - ./circle/db-import.sh
+
+    # Configure Apache.
+    - sudo cp ./circle/circle.conf /etc/apache2/sites-available
+    - sudo a2ensite circle
+    - sudo a2enmod rewrite
+    - sudo service apache2 restart
+test:
+  override:
+    - echo "Put Test Commands Here"
+deployment:
+  dev:
+    branch: master
+    commands: []

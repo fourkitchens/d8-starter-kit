@@ -1,0 +1,100 @@
+---
+# `vagrant_box` can also be set to geerlingguy/centos6, geerlingguy/centos7,
+# geerlingguy/ubuntu1404, geerlingguy/ubuntu1204, parallels/ubuntu-14.04, etc.
+vagrant_box: geerlingguy/ubuntu1204
+vagrant_user: vagrant
+vagrant_synced_folder_default_type: nfs
+
+# If you need to run multiple instances of Drupal VM, set a unique hostname,
+# machine name, and IP address for each instance.
+vagrant_machine_name: my-project
+vagrant_hostname: "{{ vagrant_machine_name }}.local"
+vagrant_ip: 192.168.88.91
+# Enable local environment access via xip.io.
+# See: http://xip.io
+vagrant_xip_io_enable: false
+vagrant_xip_io_port: 8181
+
+# A list of synced folders, with the keys 'local_path', 'destination', and
+# a 'type' of [nfs|rsync|smb] (leave empty for slow native shares). See
+# http://docs.drupalvm.com/en/latest/extras/syncing-folders/ for more info.
+vagrant_synced_folders:
+  # The first synced folder will be used for the default Drupal installation, if
+  # any of the build_* settings are 'true'. By default the folder is set to
+  # the drupal-vm folder.
+  - local_path: .
+    destination: "/var/www/{{ vagrant_machine_name }}"
+    type: nfs
+    create: true
+
+# Memory and CPU to use for this VM.
+vagrant_memory: 2048
+vagrant_cpus: 2
+
+drupal_composer_dependencies: []
+
+# Set this to 'true' and 'build_makefile', 'build_composer' to 'false' if you
+# are using Composer's create-project as a site deployment strategy.
+build_composer_project: false
+
+# Set this to 'false' if you don't need to install drupal (using the drupal_*
+# settings below), but instead copy down a database (e.g. using drush sql-sync).
+install_site: false
+
+# Required Drupal settings.
+drupal_core_path: "/var/www/{{ vagrant_machine_name }}/docroot"
+drupal_db_user: "{{ vagrant_machine_name }}"
+drupal_db_password: "{{ vagrant_machine_name }}"
+drupal_db_name: "{{ vagrant_machine_name }}"
+
+# Comment out any extra utilities you don't want to install. If you don't want
+# to install *any* extras, make set this value to an empty set, e.g. `[]`.
+installed_extras:
+  - adminer
+  # - blackfire
+  # - drupalconsole
+  # - elasticsearch
+  - drush
+  - mailhog
+  # - memcached
+  # - newrelic
+  # - nodejs
+  - pimpmylog
+  # - redis
+  # - ruby
+  # - selenium
+  # - solr
+  # - upload-progress
+  - varnish
+  # - xdebug
+  # - xhprof
+
+# Add any extra apt or yum packages you would like installed.
+extra_packages: []
+  # For geos PHP module.
+  # - autoconf
+  # - libgeos-dev
+  # - php5-dev
+
+# PHP Configuration. Currently-supported versions: 5.6, 7.0, 7.1.
+# See version-specific notes: http://docs.drupalvm.com/en/latest/other/php/
+php_version: "5.6"
+
+# Run specified scripts before or after VM is provisioned. Path is relative to
+# the `provisioning/playbook.yml` file.
+post_provision_scripts: []
+  # Configure solr.
+  #- "{{ config_dir }}/scripts/drupalvm/configure-solr.sh"
+  # Configure geos.
+  #- "{{ config_dir }}/scripts/drupalvm/configure-geos.sh"
+
+# Node.js configuration (if enabled above).
+# Valid examples: "0.10", "0.12", "4.x", "5.x".
+nodejs_version: "5.x"
+
+# Varnish Configuration (if enabled above).
+# Mimic default Acquia Varnish configuration.
+# varnish_default_vcl_template_path: "{{ config_dir }}/scripts/drupalvm/acquia/default.vcl"
+
+# Use PHPSTORM for PHPStorm, sublime.xdebug for Sublime Text.
+php_xdebug_idekey: PHPSTORM

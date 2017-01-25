@@ -1,0 +1,21 @@
+if Vagrant.has_plugin?('vagrant-cachier')
+  config.cache.scope = :box
+  config.cache.synced_folder_opts = {
+    type: :nfs,
+    mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+  }
+  config.cache.enable :generic, :cache_dir => '/home/vagrant/.composer/cache'
+end
+
+# Networking configuration.
+# xip.io
+if vconfig['vagrant_xip_io_enable']
+  vagrant_xip_io_port = 8181
+
+  if vconfig['vagrant_xip_io_port']
+    vagrant_xip_io_port = vconfig['vagrant_xip_io_port']
+  end
+
+  config.vm.network "forwarded_port", guest: 80, host: vagrant_xip_io_port,
+    auto_correct: true
+end

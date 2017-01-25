@@ -1,0 +1,7 @@
+{
+  "extends": "./docroot/.eslintrc",
+  "globals": {
+    "Typekit": true,
+    "L": true,
+  }
+}
