@@ -30,7 +30,8 @@ run:
     commands:
       - "composer install"
       - "gulp aliases"
-      - "gulp install-phpcs"
+      # TODO: Fix https://github.com/fourkitchens/d8-starter-kit/issues/1
+      # - "gulp install-phpcs"
   drupalvm:
     description: "Configures and installs a Drupal VM for this project."
     commands:
