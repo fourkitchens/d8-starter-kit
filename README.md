@@ -29,9 +29,8 @@ Provided you have all of the system requirements in place you're just a couple o
 - Composer
 
 Install project Node.js dependencies by running:
-```
-npm install
-```
+`npm install` or `yarn` # NOTE: yarn is faster
+
 
 Install Drupal and set up the local site by running:
 ```
