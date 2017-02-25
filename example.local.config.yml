@@ -1,0 +1,22 @@
+---
+# If you need to run multiple instances of Drupal VM, set a unique hostname,
+# machine name, and IP address for each instance.
+vagrant_machine_name: my-project
+vagrant_hostname: "{{ vagrant_machine_name }}.local"
+vagrant_ip: 192.168.88.91
+
+# A list of synced folders, with the keys 'local_path', 'destination', and
+# a 'type' of [nfs|rsync|smb] (leave empty for slow native shares). See
+# http://docs.drupalvm.com/en/latest/extras/syncing-folders/ for more info.
+vagrant_synced_folders:
+  # The first synced folder will be used for the default Drupal installation, if
+  # any of the build_* settings are 'true'. By default the folder is set to
+  # the drupal-vm folder.
+  - local_path: .
+    destination: "/var/www/{{ vagrant_machine_name }}"
+    type: nfs
+    create: true
+
+# Memory and CPU to use for this VM.
+vagrant_memory: 2048
+vagrant_cpus: 2

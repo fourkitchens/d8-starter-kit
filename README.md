@@ -44,8 +44,9 @@ This project support Drupal VM for hosting a local development environment. If y
 
 **Requirements:**
 
-- Vagrant >= 1.8.6
-- Ansible >= 2.1
+- Vagrant >= 1.9.1
+- Ansible >= 2.2
+- VirtualBox 5.0.32+ or 5.1.6+
 
 Install Drupal VM, get a copy of the project database, and import configuration by running:
 ```

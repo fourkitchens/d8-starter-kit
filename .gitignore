@@ -23,7 +23,7 @@ local.settings.php
 local.project.yml
 
 # Vagrant.
-config.yml
+local.config.yml
 .vagrant
 
 # Node.js.
