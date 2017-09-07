@@ -29,13 +29,11 @@ run:
     description: "Initial project setup."
     commands:
       - "composer install"
-      - "gulp aliases"
-      # TODO: Fix https://github.com/fourkitchens/d8-starter-kit/issues/1
-      # - "gulp install-phpcs"
+      - "gulp drush-aliases"
+      - "gulp install-phpcs"
   drupalvm:
     description: "Configures and installs a Drupal VM for this project."
     commands:
-      - "[ -f ./config.yml ] && echo \"config.yml already exists.\" || cp ./example.config.yml ./config.yml"
       - "vagrant up"
   import-data:
     description: "Imports canonical database into Drupal and sanitizes it."

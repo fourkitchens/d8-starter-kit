@@ -92,29 +92,6 @@ class ScriptHandler {
   }
 
   /**
-   * Configure Vagrant files.
-   *
-   * @param \Composer\Script\Event $event
-   *   The event that triggered this method.
-   */
-  public static function configureVagrant(Event $event) {
-    $fs = new Filesystem();
-    $project_root = self::getProjectRoot();
-
-    // Create config file..
-    if (!$fs->exists($project_root . '/config.yml')
-      && $fs->exists($project_root . '/example.config.yml')) {
-      $fs->copy($project_root . '/example.config.yml', $project_root . '/config.yml');
-    }
-
-    // Symlink simplesamlphp www directory into the Drupal root.
-    if (!$fs->exists($project_root . '/vendor/geerlingguy/drupal-vm/Vagrantfile.local')
-      && $fs->exists($project_root . '/Vagrantfile.local')) {
-      $fs->copy($project_root . '/Vagrantfile.local', $project_root . '/vendor/geerlingguy/drupal-vm/Vagrantfile.local');
-    }
-  }
-
-  /**
    * Checks if the installed version of Composer is compatible.
    *
    * Composer 1.0.0 and higher consider a `composer install` without having a

@@ -56,7 +56,7 @@ The VM provisioning should complete without errors. If so, you'll be able to acc
 
 If this is a new site without a database, go here to complete the Drupal install: [http://my-project.local/core/install.php](http://my-project.local/core/install.php).
 
-You'll be able to access some helpful tools for the VM (like phpMyAdmin, Solr, and MailHog) at [http://192.168.88.92](http://192.168.88.92).
+You'll be able to access some helpful tools for the VM (like phpMyAdmin, Solr, and MailHog) at [http://my-project.local/dashboard](http://my-project.local/dashboard).
 
 ## Project run commands
 

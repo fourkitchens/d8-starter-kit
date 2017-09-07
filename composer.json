@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Jeff Tomlinson",
-            "role": "Senior Engineer",
+            "role": "Architect",
             "email": "jeff@fourkitchens.com"
         }
     ],
@@ -39,7 +39,7 @@
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
         "drupal/devel": "1.x-dev",
-        "geerlingguy/drupal-vm": "4.1.1",
+        "geerlingguy/drupal-vm": "4.6.0",
         "jcalderonzumba/gastonjs": "~1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
         "mikey179/vfsStream": "~1.2",
@@ -53,7 +53,7 @@
     "prefer-stable": true,
     "autoload": {
         "classmap": [
-            "scripts/composer/ScriptHandler.php"
+            "composer/scripts/ScriptHandler.php"
         ]
     },
     "scripts": {
@@ -65,12 +65,10 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\ScriptHandler::configureVagrant"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "DrupalProject\\composer\\ScriptHandler::configureVagrant"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ]
     },
     "config": {
