@@ -13,6 +13,12 @@ env:
     database: "my-project"
 ```
 
+Create a local copy of the vagrant config file
+
+```
+cd drupalvm; cp example.config.yml config.yml
+```
+
 In `config.yml` set `vagrant_machine_name` to the same value you set for `env.default.project_name` above:
 
 ```
